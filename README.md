@@ -1,4 +1,3 @@
 ffmpeg_study
 ============
-
-personal study of ffmpeg
+这个是我个人在学习ffmpeg中的经验。
