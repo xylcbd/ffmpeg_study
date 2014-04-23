@@ -1,0 +1,28 @@
+ffmpeg官方网站为： http://ffmpeg.org/
+
+ffmpeg官方git地址为 ： git://source.ffmpeg.org/ffmpeg.git
+
+下面是ffmpeg在windows下的编译详情：
+0, git设置AutoCrlf为false ，打开git命令行 ， git config --global core.autocrlf false
+1，git clone ffmpeg到本地目录；
+1，下载安装mingw，包含msys组件； （http://www.mingw.org/）
+2，下载yasm，复制到mingw/msys/1.0/bin目录下，注意需要改名为yasm.exe； （http://yasm.tortall.net/）
+3，下载c99-to-c89（https://github.com/libav/c99-to-c89/downloads），将c99conv.exe和c99wrap.exe复制到mingw/msys/1.0/bin目录下
+3，下载inttypes.h和stdint.h，复制到D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include目录下（http://code.google.com/p/msinttypes/downloads/list）
+3，复制mingw/msys/1.0/msys.bat重命名为msys_vs2010.bat，在最开头部分添加visual c++的环境设置批处理，如：call "D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\vcvars32.bat" ；
+4，打开msys_vs2010.bat，切换到ffmpeg目录下；
+5，configure命令：
+静态库：./configure --enable-static --enable-memalign-hack --prefix=./vs2010_build --extra-cflags="-fno-common" --toolchain=msvc
+动态库：./configure --enable-shared --enable-memalign-hack --prefix=./vs2010_build --extra-cflags="-fno-common" --toolchain=msvc
+6，make & make install
+7,完成
+
+
+常见错误：
+1,configure时出现“c99wrap cl is unable to create an executable file.” 且在config.log中最后发现“Command line error D8021 : invalid numeric argument”，你可能在用vs2010以下版本。官方未对此版本进行测试，所以，最好还是用新版本的vs。
+2,configure时出现“c99wrap cl is unable to create an executable file.” 且在config.log中最后发现“link: invalid option -- o”，是因为msys/1.0/bin/link.exe与vs的link.exe冲突，将msys/1.0/link.exe临时改下名字，比如link_gnu.exe，编译完成后再改回来。
+
+参考：
+1，http://ffmpeg.org/platform.html#Microsoft-Visual-C_002b_002b-or-Intel-C_002b_002b-Compiler-for-Windows
+2，http://stackoverflow.com/questions/17218902/connect-ffmpeg-to-visual-studio-2008
+3，https://github.com/xylcbd/ffmpeg_study
