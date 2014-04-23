@@ -1,0 +1,15 @@
+ffmpeg官方网站为： http://ffmpeg.org/
+
+ffmpeg官方git地址为 ： git://source.ffmpeg.org/ffmpeg.git
+
+下面是ffmpeg在windows下的编译详情：
+0, git设置AutoCrlf为false ，打开git命令行 ， git config --global core.autocrlf false
+1，git clone ffmpeg到本地目录；
+2，下载安装mingw，包含msys组件； （http://www.mingw.org/）
+3，下载yasm，复制到mingw/msys/1.0/bin目录下，注意需要改名为yasm.exe； （http://yasm.tortall.net/）
+4，打开msys.bat，切换到ffmpeg目录下；
+5，configure命令 ： 
+静态库：./configure --enable-static --enable-memalign-hack --prefix=d:/ffmpeg_build --extra-cflags="-fno-common"
+动态库：./configure --enable-shared --enable-memalign-hack --prefix=d:/ffmpeg_build --extra-cflags="-fno-common"
+6，make & make install
+7,完成。
